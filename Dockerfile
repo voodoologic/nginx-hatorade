@@ -24,6 +24,7 @@ WORKDIR /etc/nginx
 
 # Define default command.
 CMD ["nginx"]
+COPY ./nginx.conf /etc/nginx/
 
 # Expose ports.
 EXPOSE 80
