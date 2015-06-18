@@ -9,6 +9,7 @@ FROM ubuntu:14.04
 
 # Install Nginx.
 RUN \
+  apt-get install software-properties-common python-software-properties \
   add-apt-repository -y ppa:nginx/stable && \
   apt-get update && \
   apt-get install -y nginx && \
