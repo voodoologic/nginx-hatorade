@@ -24,12 +24,11 @@ VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/v
 WORKDIR /etc/nginx
 
 # Define default command.
-CMD ["nginx"]
+# CMD ["nginx"]
 COPY ./nginx.conf /etc/nginx/
 
 # Expose ports.
-EXPOSE 80
-EXPOSE 443
+EXPOSE 450080 458080
 
 # Set the default command to execute
 # when creating a new container
