@@ -28,7 +28,7 @@ WORKDIR /etc/nginx
 COPY ./nginx.conf /etc/nginx/
 
 # Expose ports.
-EXPOSE 450080 458080
+EXPOSE 45080 45808
 
 # Set the default command to execute
 # when creating a new container
