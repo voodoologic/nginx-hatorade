@@ -7,6 +7,7 @@
 # Pull base image.
 FROM ubuntu:14.04
 
+LABEL hatorade-nginx
 # Install Nginx.
 RUN \
   apt-get install -y software-properties-common && \
