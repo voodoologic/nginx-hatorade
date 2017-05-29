@@ -10,12 +10,9 @@ FROM ubuntu:14.04
 LABEL container=hatorade-nginx
 # Install Nginx.
 RUN \
-  apt-get install -y software-properties-common && \
-  add-apt-repository -y ppa:nginx/stable && \
-  apt-get update && \
-  apt-get install -y nginx && \
-  rm -rf /var/lib/apt/lists/* && \
-  echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
+  apt-get update && \ 
+  apt-get install -y nginx
+RUN  rm -rf /var/lib/apt/lists/* && \
   chown -R www-data:www-data /var/lib/nginx
 
 # Define mountable directories.
