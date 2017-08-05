@@ -24,9 +24,11 @@ WORKDIR /etc/nginx
 # Define default command.
 # CMD ["nginx"]
 COPY ./nginx.conf /etc/nginx/
+COPY ./local.conf /etc/nginx/
 # Expose ports.
 
 # Set the default command to execute
 # when creating a new container
-CMD service nginx start
+# CMD service nginx start
+CMD service nginx start -c /etc/nginx/local.conf
 
