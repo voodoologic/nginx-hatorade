@@ -30,5 +30,6 @@ COPY ./local.conf /etc/nginx/
 # Set the default command to execute
 # when creating a new container
 # CMD service nginx start
-CMD service nginx start -c /etc/nginx/local.conf
+# CMD service nginx start -c /etc/nginx/local.conf
+CMD service nginx start -c /etc/nginx/nginx.conf
 
