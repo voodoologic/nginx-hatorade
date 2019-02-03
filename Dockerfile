@@ -1,17 +1,10 @@
-#
-# Nginx Dockerfile
-#
-# https://github.com/dockerfile/nginx
-#
+FROM ubuntu:18.04
+MAINTAINER Doug Headley <headley.douglas@gmail.com>
 
-# Pull base image.
-FROM ubuntu:14.04
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install -y nginx
 
-LABEL container=hatorade-nginx
-# Install Nginx.
-RUN \
-  apt-get update && \ 
-  apt-get install -y nginx
 RUN  rm -rf /var/lib/apt/lists/* && \
   chown -R www-data:www-data /var/lib/nginx
 
@@ -31,5 +24,6 @@ COPY ./local.conf /etc/nginx/
 # when creating a new container
 # CMD service nginx start
 # CMD service nginx start -c /etc/nginx/local.conf
+LABEL container=hatorade-nginx
 CMD service nginx start -c /etc/nginx/nginx.conf
 
