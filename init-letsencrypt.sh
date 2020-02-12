@@ -5,11 +5,12 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(posabit.passiveobserver.com admin.passiveobserver.com)
+domains=(*.hatora.de)
 rsa_key_size=4096
 data_path="./data/certbot"
-email="passiveobserver@d.passiveobserver.com" # Adding a valid address is strongly recommended
+email="doug@mail.passiveobserver.com" # Adding a valid address is strongly recommended
 staging=1 # Set to 1 if you're testing your setup to avoid hitting request limits
+container_name=hatorade-nginx
 
 if [ -d "$data_path" ]; then
   read -p "Existing data found for $domains. Continue and replace existing certificate? (y/N) " decision
@@ -39,7 +40,7 @@ echo
 
 
 echo "### Starting nginx ..."
-docker-compose up --force-recreate -d nginx
+docker-compose up --force-recreate -d $container_name
 echo
 
 echo "### Deleting dummy certificate for $domains ..."
@@ -67,14 +68,16 @@ esac
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
 docker-compose run --rm --entrypoint "\
-  certbot certonly --webroot -w /var/www/certbot \
+  certbot certonly -w /var/www/certbot \
     $staging_arg \
     $email_arg \
     $domain_args \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
+    --manual \
     --force-renewal" certbot
 echo
 
 echo "### Reloading nginx ..."
-docker-compose exec nginx nginx -s reload
+chown -R oldbones data
+docker-compose exec hatorade-nginx nginx -s reload
