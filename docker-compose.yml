@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+
+  nginx:
+    container_name: nginx
+    restart: unless-stopped
+    build: $PWD/nginx/
+    volumes:
+      - matomo:/var/www/html
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+      - ${PWD}/nginx/matomo.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 80:80
+      - 443:443
+    command: /bin/bash -c "exec nginx -g 'daemon off;'"
+    networks:
+      nginx_network:
+  certbot:
+    image: certbot/certbot
+networks:
+  nginx_network:
